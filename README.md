@@ -1,4 +1,5 @@
-**Movie Recommendation System 🎬**
+#Movie Recommendation System 🎬
+
 A state-of-the-art hybrid movie recommendation system designed to provide highly personalized movie suggestions. This system leverages both content-based filtering and collaborative filtering approaches to analyze user preferences and movie characteristics, ensuring accurate and tailored recommendations for each user.
 
 The project is built using the MovieLens dataset, a gold standard in recommendation system research, and incorporates advanced machine learning techniques to deliver a robust and scalable solution. Whether you're looking for movies similar to your favorites, recommendations based on user behavior, or hybrid suggestions combining multiple strategies, this system has you covered.
