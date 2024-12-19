@@ -134,6 +134,88 @@ class HybridRecommender:
                 user_id,
                 movie_id
             ).est
-            
+    
             similar_users = self.collaborative_recommender.get_similar_users(
-                user_
+                user_id,
+                n_similar=3
+            )
+            
+            explanations[rec_title] = {
+                'content_based': {
+                    'similarity_score': content_explanation['similarity_score'],
+                    'common_genres': content_explanation['common_genres']
+                },
+                'collaborative': {
+                    'predicted_rating': predicted_rating,
+                    'similar_users': similar_users
+                },
+                'hybrid_score': (
+                    self.content_weight * content_explanation['similarity_score'] +
+                    self.collab_weight * (predicted_rating / 5.0)
+                )
+            }
+        
+        return explanations
+    
+    def evaluate(self, test_users, test_movies):
+        """
+        Evaluate hybrid recommender performance
+        
+        Parameters:
+        test_users (list): List of user IDs for testing
+        test_movies (list): List of movie titles for testing
+        
+        Returns:
+        dict: Dictionary containing evaluation metrics
+        """
+        content_metrics = []
+        collab_metrics = []
+        hybrid_metrics = []
+        
+        for user_id in test_users:
+            for movie_title in test_movies:
+                # Get recommendations from each system
+                content_recs, _ = self.content_recommender.get_recommendations(movie_title)
+                collab_recs = self.collaborative_recommender.get_recommendations(user_id)
+                hybrid_recs = self.get_recommendations(user_id, movie_title)
+                
+                # Calculate precision and recall
+                content_metrics.append(self._calculate_metrics(content_recs, test_movies))
+                collab_metrics.append(self._calculate_metrics(collab_recs, test_movies))
+                hybrid_metrics.append(self._calculate_metrics(hybrid_recs, test_movies))
+        
+        return {
+            'content_based': {
+                'precision': np.mean([m['precision'] for m in content_metrics]),
+                'recall': np.mean([m['recall'] for m in content_metrics])
+            },
+            'collaborative': {
+                'precision': np.mean([m['precision'] for m in collab_metrics]),
+                'recall': np.mean([m['recall'] for m in collab_metrics])
+            },
+            'hybrid': {
+                'precision': np.mean([m['precision'] for m in hybrid_metrics]),
+                'recall': np.mean([m['recall'] for m in hybrid_metrics])
+            }
+        }
+    
+    def _calculate_metrics(self, recommended_items, relevant_items):
+        """
+        Calculate precision and recall metrics
+        
+        Parameters:
+        recommended_items (list): List of recommended items
+        relevant_items (list): List of relevant items
+        
+        Returns:
+        dict: Dictionary containing precision and recall scores
+        """
+        recommended_set = set(recommended_items)
+        relevant_set = set(relevant_items)
+        
+        true_positives = len(recommended_set.intersection(relevant_set))
+        
+        precision = true_positives / len(recommended_set) if recommended_set else 0
+        recall = true_positives / len(relevant_set) if relevant_set else 0
+        
+        return {'precision': precision, 'recall': recall}
