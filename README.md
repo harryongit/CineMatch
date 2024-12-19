@@ -1,4 +1,4 @@
-#Movie Recommendation System 🎬
+****Movie Recommendation System 🎬****
 
 A state-of-the-art hybrid movie recommendation system designed to provide highly personalized movie suggestions. This system leverages both content-based filtering and collaborative filtering approaches to analyze user preferences and movie characteristics, ensuring accurate and tailored recommendations for each user.
 
