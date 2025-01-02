@@ -38,6 +38,7 @@ Whether you're looking for movies similar to your favorites, discovering movies 
 
 To get started quickly with the Movie Recommendation System, follow these steps:
 
+
 ### 1. Clone the repository and set up the environment:
 
 ```bash
