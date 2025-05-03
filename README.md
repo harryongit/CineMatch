@@ -7,6 +7,7 @@ Whether you're looking for movies similar to your favorites, discovering movies 
 ![42195739-27dc-44c9-8a13-9e5fa16da84c](https://github.com/user-attachments/assets/060411ae-31c8-4aab-9ba0-ea2c0ae3a44a)
 
 
+
 ## Key Features
 
 ### 1. **Hybrid Approach**
