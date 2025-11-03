@@ -9,6 +9,7 @@ Whether you're looking for movies similar to your favorites, discovering movies 
 
 ## Key Features
 
+
 ### 1. **Hybrid Approach**
 
 * The system leverages both **content-based filtering** (analyzing movie features like genre, cast, director, etc.) and **collaborative filtering** (based on user-item interactions and behaviors) to provide personalized recommendations.
